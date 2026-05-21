@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anushka Srivastava — Portfolio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Noto+Sans+JP:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --ink:#1a0a2e;
+  --paper:#fffef5;
+  --paper2:#fff9e6;
+  --red:#e63946;
+  --yellow:#ffd60a;
+  --blue:#023e8a;
+  --lightblue:#90e0ef;
+  --pink:#ff6b9d;
+  --purple:#7b2d8b;
+  --panel-border:3px solid #1a0a2e;
+  --thick:5px solid #1a0a2e;
+}
+
+body{
+  background:#1a0a2e;
+  font-family:'Comic Neue',cursive;
+  overflow-x:hidden;
+  cursor:crosshair;
+}
+
+/* HALFTONE BG */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:radial-gradient(circle, #ffffff12 1px, transparent 1px);
+  background-size:12px 12px;
+  pointer-events:none;
+  z-index:0;
+}
+
+.manga-page{
+  max-width:1100px;
+  margin:0 auto;
+  padding:20px;
+  position:relative;
+  z-index:1;
+}
+
+/* SPEED LINES decoration */
+.speed-lines{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  background:repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 0.8deg, #ffffff04 1deg, transparent 1.2deg);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── PANEL BASE ── */
+.panel{
+  background:var(--paper);
+  border:var(--panel-border);
+  position:relative;
+  overflow:hidden;
+}
+
+.panel::after{
+  content:'';
+  position:absolute;
+  bottom:-4px;right:-4px;
+  width:100%;height:100%;
+  background:#1a0a2e;
+  z-index:-1;
+}
+
+/* ── HERO SECTION ── */
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+
+.hero-main{
+  grid-column:1/-1;
+  padding:40px 40px 30px;
+  background:var(--yellow);
+  border:var(--thick);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-main::before{
+  content:'';
+  position:absolute;
+  top:-60px;right:-60px;
+  width:300px;height:300px;
+  border:40px solid #1a0a2e22;
+  border-radius:50%;
+}
+
+.manga-title{
+  font-family:'Bangers',cursive;
+  font-size:clamp(60px,8vw,110px);
+  color:var(--ink);
+  line-height:0.9;
+  letter-spacing:2px;
+  text-shadow:4px 4px 0 #ffffff80;
+  position:relative;
+  z-index:1;
+}
+
+.manga-subtitle{
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  color:#1a0a2e;
+  background:white;
+  display:inline-block;
+  padding:4px 12px;
+  border:2px solid #1a0a2e;
+  margin-top:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.speech-bubble{
+  position:absolute;
+  top:20px;right:30px;
+  background:white;
+  border:3px solid var(--ink);
+  border-radius:20px 20px 20px 0;
+  padding:12px 18px;
+  max-width:220px;
+  font-family:'Comic Neue',cursive;
+  font-weight:700;
+  font-size:13px;
+  line-height:1.4;
+  z-index:2;
+  box-shadow:3px 3px 0 var(--ink);
+}
+
+.speech-bubble::after{
+  content:'';
+  position:absolute;
+  bottom:-16px;left:20px;
+  border:8px solid transparent;
+  border-top-color:var(--ink);
+}
+
+.sfx{
+  font-family:'Bangers',cursive;
+  font-size:clamp(28px,4vw,48px);
+  color:var(--red);
+  position:absolute;
+  letter-spacing:3px;
+  transform:rotate(-8deg);
+  text-shadow:2px 2px 0 var(--ink);
+  bottom:15px;
+  right:40px;
+  z-index:2;
+}
+
+/* ── INFO PANELS ── */
+.info-panel{
+  padding:20px;
+}
+
+.panel-label{
+  font-family:'Bangers',cursive;
+  font-size:11px;
+  letter-spacing:4px;
+  color:var(--red);
+  border-bottom:2px solid var(--ink);
+  padding-bottom:4px;
+  margin-bottom:12px;
+  text-transform:uppercase;
+}
+
+.stat-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+  align-items:center;
+  font-size:13px;
+  font-weight:700;
+}
+
+.stat-icon{
+  width:28px;height:28px;
+  background:var(--ink);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--yellow);
+  font-size:12px;
+  flex-shrink:0;
+}
+
+/* ── SECTION HEADERS ── */
+.section-header{
+  font-family:'Bangers',cursive;
+  font-size:clamp(32px,4vw,52px);
+  color:var(--paper);
+  background:var(--ink);
+  padding:10px 24px;
+  margin:20px 0 12px;
+  position:relative;
+  display:inline-block;
+  letter-spacing:3px;
+}
+
+.section-header::before{
+  content:attr(data-jp);
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:11px;
+  font-weight:900;
+  color:var(--yellow);
+  display:block;
+  letter-spacing:2px;
+  margin-bottom:2px;
+}
+
+/* ── SKILLS GRID ── */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:12px;
+  margin-bottom:16px;
+}
+
+.skill-card{
+  padding:14px;
+  text-align:center;
+  position:relative;
+}
+
+.skill-card.red{background:var(--red);color:white;border-color:var(--ink);}
+.skill-card.blue{background:var(--blue);color:white;border-color:var(--ink);}
+.skill-card.yellow{background:var(--yellow);color:var(--ink);border-color:var(--ink);}
+.skill-card.purple{background:var(--purple);color:white;border-color:var(--ink);}
+.skill-card.pink{background:var(--pink);color:white;border-color:var(--ink);}
+.skill-card.dark{background:var(--ink);color:var(--yellow);border-color:var(--yellow);}
+
+.skill-name{
+  font-family:'Bangers',cursive;
+  font-size:18px;
+  letter-spacing:2px;
+  display:block;
+  margin-bottom:6px;
+}
+
+.skill-tags{
+  font-size:10px;
+  font-weight:700;
+  opacity:0.85;
+  line-height:1.6;
+}
+
+/* ── INTERNSHIP ── */
+.intern-panel{
+  padding:24px;
+  background:var(--paper2);
+}
+
+.intern-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.company-name{
+  font-family:'Bangers',cursive;
+  font-size:32px;
+  color:var(--red);
+  letter-spacing:2px;
+  line-height:1;
+}
+
+.role-badge{
+  background:var(--ink);
+  color:var(--yellow);
+  font-size:11px;
+  font-weight:700;
+  padding:4px 10px;
+  letter-spacing:2px;
+  margin-top:4px;
+  display:inline-block;
+}
+
+.date-badge{
+  background:var(--red);
+  color:white;
+  font-family:'Bangers',cursive;
+  font-size:16px;
+  padding:6px 14px;
+  letter-spacing:1px;
+}
+
+.intern-points{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.intern-points li{
+  display:flex;
+  gap:10px;
+  font-size:12.5px;
+  line-height:1.6;
+  font-weight:700;
+}
+
+.point-num{
+  font-family:'Bangers',cursive;
+  font-size:20px;
+  color:var(--red);
+  min-width:24px;
+  line-height:1.2;
+}
+
+/* ── PROJECTS ── */
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.project-card{
+  padding:20px;
+}
+
+.project-number{
+  font-family:'Bangers',cursive;
+  font-size:60px;
+  line-height:1;
+  margin-bottom:-10px;
+  opacity:0.12;
+  position:absolute;
+  top:10px;right:15px;
+}
+
+.project-title{
+  font-family:'Bangers',cursive;
+  font-size:22px;
+  color:var(--ink);
+  letter-spacing:1px;
+  margin-bottom:4px;
+  position:relative;
+  z-index:1;
+}
+
+.project-tech{
+  font-size:10px;
+  font-weight:700;
+  color:var(--red);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+  position:relative;
+  z-index:1;
+}
+
+.project-desc{
+  font-size:12px;
+  line-height:1.7;
+  font-weight:700;
+  position:relative;
+  z-index:1;
+}
+
+.github-btn{
+  display:inline-block;
+  margin-top:12px;
+  background:var(--ink);
+  color:var(--yellow);
+  font-family:'Bangers',cursive;
+  font-size:14px;
+  padding:6px 14px;
+  letter-spacing:2px;
+  text-decoration:none;
+  border:2px solid var(--yellow);
+  transition:transform 0.1s;
+  position:relative;
+  z-index:1;
+}
+
+.github-btn:hover{transform:translate(-2px,-2px);}
+
+/* ── CERTS & ACHIEVEMENTS ── */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:16px;
+}
+
+.cert-list{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.cert-list li{
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+  font-size:12px;
+  font-weight:700;
+  line-height:1.5;
+}
+
+.cert-star{
+  font-family:'Bangers',cursive;
+  font-size:16px;
+  color:var(--yellow);
+  background:var(--ink);
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  border-radius:50%;
+}
+
+/* ── CONTACT STRIP ── */
+.contact-strip{
+  background:var(--red);
+  border:var(--thick);
+  padding:20px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:16px;
+}
+
+.contact-title{
+  font-family:'Bangers',cursive;
+  font-size:36px;
+  color:var(--yellow);
+  letter-spacing:3px;
+}
+
+.contact-links{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.contact-link{
+  background:var(--ink);
+  color:var(--yellow);
+  font-family:'Bangers',cursive;
+  font-size:15px;
+  padding:8px 16px;
+  text-decoration:none;
+  letter-spacing:2px;
+  border:2px solid var(--yellow);
+  transition:transform 0.1s,background 0.1s;
+}
+
+.contact-link:hover{background:var(--yellow);color:var(--ink);}
+
+/* ── DECORATIVE ── */
+.onomatopoeia{
+  font-family:'Bangers',cursive;
+  font-size:clamp(40px,6vw,80px);
+  color:#ffffff08;
+  position:absolute;
+  pointer-events:none;
+  letter-spacing:5px;
+  transform:rotate(-15deg);
+  z-index:0;
+}
+
+.panel-divider{
+  height:5px;
+  background:repeating-linear-gradient(90deg, var(--ink) 0, var(--ink) 20px, transparent 20px, transparent 24px);
+  margin:8px 0;
+}
+
+/* Education */
+.edu-panel{padding:20px;}
+.edu-school{font-family:'Bangers',cursive;font-size:24px;color:var(--ink);letter-spacing:1px;}
+.edu-degree{font-size:13px;font-weight:700;color:var(--blue);margin:4px 0;}
+.edu-meta{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;}
+.edu-badge{background:var(--ink);color:var(--yellow);font-family:'Bangers',cursive;font-size:13px;padding:4px 10px;letter-spacing:1px;}
+.edu-badge.green{background:#2d6a4f;color:white;}
+
+/* POSITIONS */
+.positions-list{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.position-item{display:flex;gap:10px;font-size:12px;font-weight:700;line-height:1.5;}
+.pos-bullet{font-family:'Bangers',cursive;font-size:16px;color:var(--purple);min-width:20px;}
+
+/* Responsive */
+@media(max-width:640px){
+  .hero-grid,.two-col{grid-template-columns:1fr;}
+  .speech-bubble{display:none;}
+  .sfx{font-size:28px;bottom:8px;right:12px;}
+}
+
+/* Hover panels */
+.panel:hover{z-index:10;}
+
+/* Thick outline highlight on hover */
+.project-card:hover{
+  background:var(--paper2);
+  transition:background 0.15s;
+}
+
+.skill-card:hover{
+  transform:translate(-2px,-2px);
+  transition:transform 0.1s;
+}
+</style>
+</head>
+<body>
+
+<div class="speed-lines"></div>
+
+<main class="manga-page">
+
+  <!-- HERO -->
+  <div class="hero-main panel" style="margin-bottom:16px;">
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 30px,#1a0a2e08 30px,#1a0a2e08 31px);pointer-events:none;"></div>
+    <div class="manga-title">ANUSHKA<br>SRIVASTAVA</div>
+    <div class="manga-subtitle">Software Dev Intern · AI Engineer · Builder</div>
+    <div class="speech-bubble">
+      "I build AI agents that actually work in production!!"
+      <br><span style="font-size:11px;color:#888;margin-top:4px;display:block;">— Anushka, 2026</span>
+    </div>
+    <div class="sfx">LOADING!</div>
+    <div class="onomatopoeia" style="bottom:0;left:60%;font-size:120px;">CODE</div>
+  </div>
+
+  <!-- QUICK INFO GRID -->
+  <div class="hero-grid" style="margin-bottom:16px;">
+
+    <div class="panel info-panel">
+      <div class="panel-label">◆ Character Stats</div>
+      <div class="stat-row">
+        <div class="stat-icon">🎓</div>
+        <span>B.Tech IT · Manipal University Jaipur</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">📍</div>
+        <span>South Delhi · India</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">⭐</div>
+        <span>CGPA: 8.04 / 10 (upto 6th sem)</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-icon">🗓</div>
+        <span>2023 — 2027</span>
+      </div>
+    </div>
+
+    <div class="panel info-panel" style="background:var(--ink);">
+      <div class="panel-label" style="color:var(--yellow);border-color:var(--yellow);">◆ Power Level</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;">
+            <span>Prompt Engineering</span><span>████████░░</span>
+          </div>
+          <div style="height:6px;background:#ffffff22;border-radius:0;">
+            <div style="height:100%;width:80%;background:var(--red);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;">
+            <span>Full-Stack Dev</span><span>███████░░░</span>
+          </div>
+          <div style="height:6px;background:#ffffff22;">
+            <div style="height:100%;width:70%;background:var(--lightblue);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;">
+            <span>AI / LLM Integration</span><span>████████░░</span>
+          </div>
+          <div style="height:6px;background:#ffffff22;">
+            <div style="height:100%;width:78%;background:var(--pink);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;">
+            <span>DSA / Problem Solving</span><span>██████░░░░</span>
+          </div>
+          <div style="height:6px;background:#ffffff22;">
+            <div style="height:100%;width:55%;background:var(--yellow);"></div>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--yellow);margin-bottom:3px;">
+            <span>DevOps / Cloud</span><span>██████░░░░</span>
+          </div>
+          <div style="height:6px;background:#ffffff22;">
+            <div style="height:100%;width:60%;background:#7b2d8b;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section-header" data-jp="スキル">SKILLS & ARSENAL</div>
+  <div class="skills-grid" style="margin-bottom:16px;">
+    <div class="panel skill-card red">
+      <span class="skill-name">Languages</span>
+      <div class="skill-tags">Python · JavaScript<br>Java · C++ · C · Kotlin</div>
+    </div>
+    <div class="panel skill-card blue">
+      <span class="skill-name">Full-Stack</span>
+      <div class="skill-tags">React.js · FastAPI · Node.js<br>Express · Tailwind · JWT</div>
+    </div>
+    <div class="panel skill-card yellow">
+      <span class="skill-name">AI & ML</span>
+      <div class="skill-tags">LLM Integration · Prompt Eng<br>AI Agents · NLP · LLaMA</div>
+    </div>
+    <div class="panel skill-card purple">
+      <span class="skill-name">Databases</span>
+      <div class="skill-tags">MongoDB Atlas · MySQL<br>CSV/JSON Pipelines</div>
+    </div>
+    <div class="panel skill-card pink">
+      <span class="skill-name">DevOps</span>
+      <div class="skill-tags">Docker · Kubernetes · CI/CD<br>Git · GitHub · Linux</div>
+    </div>
+    <div class="panel skill-card dark">
+      <span class="skill-name">CS Core</span>
+      <div class="skill-tags">DSA · OOPs · System Design<br>DBMS · OS · Networks</div>
+    </div>
+  </div>
+
+  <!-- INTERNSHIP -->
+  <div class="section-header" data-jp="インターンシップ">BATTLE EXPERIENCE</div>
+  <div class="panel intern-panel" style="margin-bottom:16px;">
+    <div class="intern-header">
+      <div>
+        <div class="company-name">PRIMEBOOK INDIA</div>
+        <div class="role-badge">SOFTWARE DEVELOPMENT INTERN</div>
+        <div style="font-size:11px;font-weight:700;color:#888;margin-top:4px;">South Delhi</div>
+      </div>
+      <div class="date-badge">MAY 2026 → ONGOING</div>
+    </div>
+    <div class="panel-divider"></div>
+    <ul class="intern-points">
+      <li>
+        <span class="point-num">01</span>
+        <span>Engineered and optimized production prompts for PrimeAGNT, an LLM-powered AI Agent, shipping conversational features directly to a live consumer-facing product used at scale.</span>
+      </li>
+      <li>
+        <span class="point-num">02</span>
+        <span>Built an LLM-based Human vs. Agent disambiguation layer that scores user input confidence and routes chit-chat/emotional queries to a conversational mode while preserving real-time keyword overrides for low-latency task detection, reducing misrouted goals in natural-language edge cases.</span>
+      </li>
+      <li>
+        <span class="point-num">03</span>
+        <span>Hardened browser automation prompts for Chrome DevTools Protocol (CDP) integration, authoring 17+ action rules covering stuck-click recovery, multi-tab data isolation, iframe failure fallback, Google Sheets data-entry precision, and clipboard permission handling; directly improving task success rates on web-based goals.</span>
+      </li>
+      <li>
+        <span class="point-num">04</span>
+        <span>Authored app-specific prompt rule sets for 10+ high-traffic apps (Amazon, WhatsApp, Google Pay, Instagram, Flipkart, Swiggy, Zomato, YouTube, Spotify, PhonePe), encoding navigation patterns, failure-prone UI paths, and disambiguation rules to reduce agent loop failures on real-world tasks.</span>
+      </li>
+      <li>
+        <span class="point-num">05</span>
+        <span>Built a session learnings pipeline that extracts structured action routes and pitfall patterns from completed agent sessions, stores them in a Room DB capped at 50 entries, and injects the top 3 relevant learnings into future runs as advisory context; enabling the agent to avoid previously observed failure modes without LLM fine-tuning.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section-header" data-jp="プロジェクト">SPECIAL MOVES</div>
+  <div class="projects-grid">
+
+    <div class="panel project-card" style="position:relative;">
+      <div class="project-number">01</div>
+      <div class="project-title">AI SUPPORT TICKET RESOLVER</div>
+      <div class="project-tech">Python · FAISS · LLaMA · Groq API · Streamlit · Railway</div>
+      <div class="panel-divider"></div>
+      <div class="project-desc">
+        Built and deployed an end-to-end AI system that auto-classifies and routes support tickets using NLP. Engineered FAISS + MiniLM-L6-v2 semantic search with sub-200ms retrieval across 500+ documents. Implemented self-improving gap-analysis logic for knowledge coverage.
+      </div>
+      <a href="https://github.com/getoanushka/AI-Powered-Support-Ticket-Helper" class="github-btn" target="_blank">→ GITHUB</a>
+    </div>
+
+    <div class="panel project-card" style="position:relative;background:#fff0f5;">
+      <div class="project-number">02</div>
+      <div class="project-title">HISTOVISION</div>
+      <div class="project-tech">FastAPI · React · MongoDB · OpenCV · Scikit-image · Render</div>
+      <div class="panel-divider"></div>
+      <div class="project-desc">
+        Full-stack tissue & microscopy image analysis platform shipped to production on Render. Built multi-stage pipeline: Gaussian denoising → Otsu's thresholding → findContours → 6-metric quality scoring. Engineered RGB↔HSV↔LAB colour-space transforms with CLAHE + NLM enhancement.
+      </div>
+      <a href="https://github.com/getoanushka/HistoVision.git" class="github-btn" target="_blank">→ GITHUB</a>
+    </div>
+
+    <div class="panel project-card" style="position:relative;background:#f0f4ff;">
+      <div class="project-number">03</div>
+      <div class="project-title">VIRTUAL TOUR BUDDY</div>
+      <div class="project-tech">React.js · FastAPI · MongoDB · XGBoost · Tailwind · JWT</div>
+      <div class="panel-divider"></div>
+      <div class="project-desc">
+        Scalable full-stack travel platform with budget-aware itinerary planning. Integrated XGBoost recommendation engine ranking travel options by user preferences. Built async REST APIs with JWT auth and full CRUD for bookings, itineraries, and saved trips.
+      </div>
+      <a href="https://github.com/sameMentor/budgetVoyage" class="github-btn" target="_blank">→ GITHUB</a>
+    </div>
+
+  </div>
+
+  <!-- CERTS & ACHIEVEMENTS -->
+  <div class="section-header" data-jp="実績">ACHIEVEMENTS UNLOCKED</div>
+  <div class="two-col" style="margin-bottom:16px;">
+
+    <div class="panel info-panel">
+      <div class="panel-label">◆ Certifications</div>
+      <ul class="cert-list">
+        <li>
+          <div class="cert-star">★</div>
+          <span>Infosys Springboard — Artificial Intelligence Primer · June 2025</span>
+        </li>
+        <li>
+          <div class="cert-star">★</div>
+          <span>IEEE SB MU Jaipur — AI &amp; NLP Workshop · July 2024</span>
+        </li>
+        <li>
+          <div class="cert-star">★</div>
+          <span>Oracle Academy — Database Foundations · Dec 2024</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel info-panel" style="background:var(--paper2);">
+      <div class="panel-label">◆ Special Unlocks</div>
+      <ul class="cert-list">
+        <li>
+          <div class="cert-star" style="background:var(--red);">!</div>
+          <span>Shortlisted for Infosys Springboard Virtual Internship 2025 — selected from a competitive national applicant pool.</span>
+        </li>
+        <li>
+          <div class="cert-star" style="background:#1565c0;">☁</div>
+          <span>Completed Google Cloud's 30 Days of Google Cloud Program — earned badges in core cloud infrastructure, storage, and compute.</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- POSITIONS -->
+  <div class="section-header" data-jp="役職">GUILD ROLES</div>
+  <div class="panel info-panel" style="margin-bottom:16px;">
+    <ul class="positions-list">
+      <li class="position-item">
+        <span class="pos-bullet">▶</span>
+        <span><strong>Core Committee (Events), LearnIT — IT Dept. MUJ:</strong> Planned and executed 5+ technical events/workshops per semester; coordinated logistics and speaker scheduling for 100+ students.</span>
+      </li>
+      <li class="position-item">
+        <span class="pos-bullet">▶</span>
+        <span><strong>Junior Working Team (Content), MarkSoc MUJ:</strong> Produced technical and marketing content; maintained documentation adopted across 3 active campaigns.</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact-strip">
+    <div>
+      <div class="contact-title">CONNECT!!</div>
+      <div style="font-size:11px;font-weight:700;color:#ffffff99;letter-spacing:2px;">+91-9555907797 · 28anushka.s@gmail.com</div>
+    </div>
+    <div class="contact-links">
+      <a href="https://linkedin.com/in/anushka-srivastava-b09271280" class="contact-link" target="_blank">LINKEDIN →</a>
+      <a href="https://github.com/getoanushka" class="contact-link" target="_blank">GITHUB →</a>
+      <a href="mailto:28anushka.s@gmail.com" class="contact-link">EMAIL →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER SFX -->
+  <div style="text-align:center;padding:20px 0 10px;font-family:'Bangers',cursive;font-size:20px;color:#ffffff33;letter-spacing:8px;">
+    TO BE CONTINUED...
+  </div>
+
+</main>
+
+</body>
+</html>
